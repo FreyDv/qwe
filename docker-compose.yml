@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+  nginx:
+    # используем последний стабильный образ nginx
+    image: nginx:latest
+    # маршрутизируем порты
+    ports:
+      - "8000:80"
+    # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./www:/var/app
+      - ./nginx/logs:/var/log/nginx
+     # - ./nginxAllFile:/etc/nginx
+    # nginx должен общаться с php контейнером
+    links:
+      - php
+  php:
+      # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
+      build: ./php
+      # этот образ будет общаться с mysql
+      links:
+        - mysql
+        - postgres
+      volumes:
+        - ./www/:/var/www
+        - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+        - ./php/php.ini:/usr/local/etc/php/php.ini
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    # задаем пароль для root пользователя
+    environment:
+      MYSQL_DATABASE: FreyDB
+      MYSQL_USERNAME: ldfm0401@gmail.com
+      MYSQL_ROOT_PASSWORD: Frey040198
+  pma:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links:
+      - mysql:mysql
+    ports:
+      - "8183:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_USERNAME: ldfm0401@gmail.com
+      MYSQL_ROOT_PASSWORD: Frey040198
+
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ldfm0401@gmail.com
+      POSTGRES_PASSWORD: Frey040198
+      POSTGRES_DB: FreyDB
+  adminer:
+    image: adminer
+    links:
+      - postgres:postgres
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: FreyDB
+      ADMINER_DESIGN: ldfm0401@gmail.com
+    ports:
+      - 8080:8080
+
+  node:
+    image: node:latest
+    volumes:
+      - ./www:/var/www
+      - ./node-npm
+    working_dir: /var/www
+  redis:
+    build: ./php/redis/
