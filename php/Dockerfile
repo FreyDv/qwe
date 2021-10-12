@@ -66,10 +66,35 @@ RUN apt-get install -y libxslt-dev
 RUN docker-php-ext-install xsl
 #RUN apt-get update && apt-get install -y libxml2-dev
 
+ADD php.ini /usr/local/etc/php/
+
+RUN git config --global user.name "FreyDv"
+RUN git config --global user.email "ldfm0401@gmail.com"
+
+
+
+#RUN mkdir /root/.ssh/ && \
+#    chmod 777 /root/.ssh
+#RUN ssh-keyscan github.com > /root/.ssh/known_hosts
+#RUN touch /root/.ssh/known_hosts
+#ADD ssh/id_ed25519 /root/.ssh/
+#ADD ssh/id_ed25519.pub /root/.ssh/
+#RUN chmod 600 /root/.ssh/id_ed25519 && \
+#    chmod 605 /root/.ssh/id_ed25519.pub
+#RUN chmod 777 /etc/ssh/ssh_config
+#RUN echo "IdentityFile /root/.ssh/id_ed25519" >> /etc/ssh/ssh_config
+
+# Setup for ssh onto github
+#RUN mkdir -p /root/.ssh
+#ADD ssh/id_ed25519 /root/.ssh/id_ed25519
+#RUN chmod 700 /root/.ssh/id_ed25519
+#ADD ssh/id_ed25519 /root/.ssh/id_ed25519.pub
+#RUN chmod 777 /root/.ssh/id_ed25519.pub
+#RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
 
 # Добавим свой php.ini, можем в нем определять свои значения конфигаcd
-ADD php.ini /usr/local/etc/php/
+
 # Указываем рабочую директорию для PHP
 WORKDIR /var/www
 

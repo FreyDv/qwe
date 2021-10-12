@@ -1,0 +1,21 @@
+docker exec -it def_php_1 /bin/bash
+docker stop def_nginx_1 def_php_1 def_redis_1 def_pma_1 def_adminer_1 def_postgres_1 def_mysql_1 def_node_1
+docker rm  def_nginx_1 def_php_1 def_redis_1 def_pma_1 def_adminer_1 def_postgres_1 def_mysql_1 def_node_1
+docker images
+
+
+GIT
+
+git config --global user.name "FreyDv"
+git config --global user.email "ldfm0401@gmail.com"
+
+git config --list
+
+git config --list | grep user.name
+git config --list | grep user.email
+
+symfony new --dir=lali.print --full
+
+git remote add origin git@github.com:FreyDv/lali.print.git
+git branch -M main
+git push -u origin main

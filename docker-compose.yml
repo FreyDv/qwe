@@ -27,6 +27,8 @@ services:
         - ./www/:/var/www
         - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
         - ./php/php.ini:/usr/local/etc/php/php.ini
+        - ./php/ssh/etc/ssh:/etc/ssh/
+        - ./php/ssh/root/.ssh:/root/.ssh/
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
