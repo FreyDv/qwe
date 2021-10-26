@@ -10,7 +10,7 @@ services:
     # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./www:/var/app
+      - ./www:/var/www
       - ./nginx/logs:/var/log/nginx
      # - ./nginxAllFile:/etc/nginx
     # nginx должен общаться с php контейнером

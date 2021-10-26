@@ -1,8 +1,15 @@
+
+docker-compose up -d --build
 docker exec -it def_php_1 /bin/bash
-docker stop def_nginx_1 def_php_1 def_redis_1 def_pma_1 def_adminer_1 def_postgres_1 def_mysql_1 def_node_1
-docker rm  def_nginx_1 def_php_1 def_redis_1 def_pma_1 def_adminer_1 def_postgres_1 def_mysql_1 def_node_1
+docker stop qwe_nginx_1 qwe_php_1 qwe_redis_1 qwe_pma_1 qwe_adminer_1 qwe_postgres_1 qwe_mysql_1 qwe_node_1
+docker rm  qwe_nginx_1 qwe_php_1 qwe_redis_1 qwe_pma_1 qwe_adminer_1 qwe_postgres_1 qwe_mysql_1 qwe_node_1
 docker images
 
+docker system prune -a    -чистит весь докер
+
+docker exec -it def_nginx_1 /bin/bash
+service nginx restart
+nginx -t
 
 GIT
 
@@ -19,3 +26,7 @@ symfony new --dir=lali.print --full
 git remote add origin git@github.com:FreyDv/lali.print.git
 git branch -M main
 git push -u origin main
+
+
+
+symfony console make:controller
