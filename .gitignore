@@ -1,3 +1,4 @@
 /nginx/logs/
 /www/var/
 /www/vendor/
+.idea
