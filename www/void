@@ -1,13 +1,13 @@
-
 docker-compose up -d --build
-docker exec -it def_php_1 /bin/bash
+
+docker exec -it qwe_php_1 /bin/bash
 docker stop qwe_nginx_1 qwe_php_1 qwe_redis_1 qwe_pma_1 qwe_adminer_1 qwe_postgres_1 qwe_mysql_1 qwe_node_1
 docker rm  qwe_nginx_1 qwe_php_1 qwe_redis_1 qwe_pma_1 qwe_adminer_1 qwe_postgres_1 qwe_mysql_1 qwe_node_1
 docker images
 
 docker system prune -a    -чистит весь докер
 
-docker exec -it def_nginx_1 /bin/bash
+docker exec -it qwe_nginx_1 /bin/bash
 service nginx restart
 nginx -t
 
