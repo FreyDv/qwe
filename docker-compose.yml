@@ -21,8 +21,8 @@ services:
       build: ./php
       # этот образ будет общаться с mysql
       links:
-        - mysql
         - postgres
+        - mysql
       volumes:
         - ./www/:/var/www
         - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
@@ -57,22 +57,24 @@ services:
   postgres:
     image: postgres:latest
     restart: always
+    ports:
+      - "5432:5432"
     volumes:
       - ./db/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ldfm0401@gmail.com
       POSTGRES_PASSWORD: Frey040198
       POSTGRES_DB: FreyDB
-  adminer:
-    image: adminer
+  pgadmin:
+    image: dpage/pgadmin4
     links:
       - postgres:postgres
     restart: always
     environment:
-      ADMINER_DEFAULT_SERVER: FreyDB
-      ADMINER_DESIGN: ldfm0401@gmail.com
+      PGADMIN_DEFAULT_EMAIL: ldfm0401@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Frey040198
     ports:
-      - 8080:8080
+      - 8888:80
 
   node:
     image: node:latest
