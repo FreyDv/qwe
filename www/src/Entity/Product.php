@@ -140,4 +140,11 @@ class Product
 
         return $this;
     }
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->isPublished = false;
+        $this->isDelited = false;
+    }
 }
