@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Us;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Criteria;
@@ -18,71 +19,73 @@ class DefaultController extends AbstractController
 //        $entityManager=$this->getDoctrine()->getManager();
 //        $productList = $entityManager->getRepository(Product::class)->findAll();
 //        dd($productList);
-
         $Manager=$this->getDoctrine()->getManager();
-        $usrList = $Manager->getRepository(User::class)->findBy(array('age'<23));
-        dd($usrList);
-
+//        $usrList = $Manager->getRepository(User::class)->findBy(array('age'<23));
+//        dd($usrList);
         return $this->render('main/default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
-
     }
-    #[Route('/show-usr', name: 'showplace')]
-    public function indexshowusr(): Response
-    {
-//        $entityManager=$this->getDoctrine()->getManager();
-//        $productList = $entityManager->getRepository(Product::class)->findAll();
-//        dd($productList);
 
-        $Manager=$this->getDoctrine()->getManager();
-        $criteria  = new Criteria();
-        $criteria->where($criteria->expr()->gt('age',23));
-        $usrList = UserRepository->match ($criteria);
+    #[Route('/usr-add/{name}/{age}/{zp}', 'GET', name:'usr-add')]
+    public function productAdd($name,$age,$zp): Response
+    {
+        $user = new Us($name,$age,$zp);
+        $EM=$this->getDoctrine()->getManager();
+        $EM->persist($user);
+        $EM->flush();
+        return $this->redirectToRoute('showAllUsers');
+    }
+
+    #[Route('/usr-show', name: 'showAllUsers')]
+    public function indexShowUsr(): Response
+    {
+        $EM=$this->getDoctrine()->getManager();
+        $userList = $EM->getRepository(Us::class)->findAll();
+        dd($userList);
+//        $usrList = UserRepository->match ($criteria);
 //        match ($criteria);
-
 //        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
-        dd($usrList);
-
+//        dd($usrList);
         return $this->render('main/default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
-
     }
-
-    #[Route('/product-add',methods:'GET', name: 'product-add')]
-    public function productAdd(): Response
+    #[Route('/usr-show-children', name: 'showChildrenUsers')]
+    public function indexShowUsrCildren(): Response
     {
-        $product = new Product();
-        $product->setTitle('Product#'.rand(1,100));
-        $product->setDescription("IPhone");
-        $product->setPrice(10);
-        $product->setQuantity(1);
-
-        $entityManager=$this->getDoctrine()->getManager();
-        $entityManager->persist($product);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('homepage');
+        $EM=$this->getDoctrine()->getManager();
+        $userList = $EM->getRepository(Us::class)->findAll();
+        dd($userList);
+//        $usrList = UserRepository->match ($criteria);
+//        match ($criteria);
+//        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
+//        dd($usrList);
+        return $this->render('main/default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
 
-    #[Route('/usr-add/{name}/{age}/{phone}',methods:'GET', name: 'usr-add')]
-    public function userAdd($name,$age,$phone): Response
+    #[Route('/usrtest', name: 'test')]
+    public function indexTest(): Response
     {
-        $usr = new User();
-        $usr->setName($name);
-        $usr->setAge("$age");
-        $usr->setPhone($phone);
+        $EM = new UserRepository($this->getDoctrine());
 
-        $Manager=$this->getDoctrine()->getManager();
-        $Manager->persist($usr);
-        $Manager->flush();
 
-        return $this->redirectToRoute('homepage');
+
+//        dd($userList);
+//        $usrList = UserRepository->match ($criteria);
+//        match ($criteria);
+//        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
+//        dd($usrList);
+        return $this->render('main/default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
+
 
 }
 
-//  /usr-add/daniil/23/+380992239852
-//  /usr-add/veleri/23/+380992239858
-//  /usr-add/ana/14/+380994598561
+//  /usr-add/daniil/23/15000
+//  /usr-add/veleri/23/8000
+//  /usr-add/ana/14/50

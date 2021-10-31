@@ -1,20 +1,26 @@
 docker-compose up -d --build
 
 docker exec -it qwe_php_1 /bin/bash
-docker stop qwe_nginx_1 qwe_php_1 qwe_redis_1 qwe_pma_1 qwe_adminer_1 qwe_postgres_1 qwe_mysql_1 qwe_node_1
-docker rm  qwe_nginx_1 qwe_php_1 qwe_redis_1 qwe_pma_1 qwe_adminer_1 qwe_postgres_1 qwe_mysql_1 qwe_node_1
+docker stop qwe_nginx_1 qwe_php_1 qwe_postgres_1 qwe_pgadmin_1
+docker rm  qwe_nginx_1 qwe_php_1 qwe_postgres_1  qwe_pgadmin_1
 docker images
 
 docker system prune -a    -чистит весь докер
 
+docker exec -it qwe_php_1 /bin/bash
 docker exec -it qwe_nginx_1 /bin/bash
+docker exec -it qwe_postgres_1 /bin/bash
+docker exec -it qwe_pgadmin_1 /bin/bash
+
 service nginx restart
 nginx -t
 
-docker exec -it qwe_postgres_1 /bin/bash
+PostGre
+symfony console doctrine:database:create //создаст базу данных указаную в env файле симфони
 psql -U ldfm0401@gmail.com -h postgres -d FreyDB
 psql -h qwe_postgres_1 -d FreyDB -U ldfm0401@gmail.com
 symfony console make:entity Product
+symfony console make:migration
 symfony console doctrine:migrations:migrate
 \l - список всех Баз данных
 \dt - список всех таблиц

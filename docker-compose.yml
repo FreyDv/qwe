@@ -22,37 +22,37 @@ services:
       # этот образ будет общаться с mysql
       links:
         - postgres
-        - mysql
+#        - mysql
       volumes:
         - ./www/:/var/www
         - ./php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
         - ./php/php.ini:/usr/local/etc/php/php.ini
         - ./php/ssh/etc/ssh:/etc/ssh/
         - ./php/ssh/root/.ssh:/root/.ssh/
-  mysql:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./db/mysql:/var/lib/mysql
-    # задаем пароль для root пользователя
-    environment:
-      MYSQL_DATABASE: FreyDB
-      MYSQL_USERNAME: ldfm0401@gmail.com
-      MYSQL_ROOT_PASSWORD: Frey040198
-  pma:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    links:
-      - mysql:mysql
-    ports:
-      - "8183:80"
-    environment:
-      PMA_HOST: mysql
-      MYSQL_USERNAME: ldfm0401@gmail.com
-      MYSQL_ROOT_PASSWORD: Frey040198
+#  mysql:
+#    image: mysql
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - ./db/mysql:/var/lib/mysql
+#    # задаем пароль для root пользователя
+#    environment:
+#      MYSQL_DATABASE: FreyDB
+#      MYSQL_USERNAME: ldfm0401@gmail.com
+#      MYSQL_ROOT_PASSWORD: Frey040198
+#  pma:
+#    image: phpmyadmin/phpmyadmin
+#    restart: always
+#    links:
+#      - mysql:mysql
+#    ports:
+#      - "8183:80"
+#    environment:
+#      PMA_HOST: mysql
+#      MYSQL_USERNAME: ldfm0401@gmail.com
+#      MYSQL_ROOT_PASSWORD: Frey040198
 
   postgres:
     image: postgres:latest
@@ -76,11 +76,11 @@ services:
     ports:
       - 8888:80
 
-  node:
-    image: node:latest
-    volumes:
-      - ./www:/var/www
-      - ./node-npm
-    working_dir: /var/www
-  redis:
-    build: ./php/redis/
+#  node:
+#    image: node:latest
+#    volumes:
+#      - ./www:/var/www
+#      - ./node-npm
+#    working_dir: /var/www
+#  redis:
+#    build: ./php/redis/
