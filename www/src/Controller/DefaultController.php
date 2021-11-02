@@ -6,10 +6,13 @@ use App\Entity\Product;
 use App\Entity\Us;
 use App\Repository\UsRepository;
 use Doctrine\Common\Collections\Criteria;
-use http\Client\Request;
+//use http\Client\Request;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
@@ -132,11 +135,38 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/edit-product',methods="GET|POST", name: 'product-change-prise')]
-    public function editProduct(Request $request){
-
+    #[Route('/edit-product/{id}', name: 'product_edit', requirements: array('id' => '\d+'), methods: 'GET|POST')]
+    #[Route('/add-product/', name: 'product_add',methods: 'GET|POST')]
+    public function editProduct(Request $request,int $id=null): Response
+    {
+        // http://lali.print:8000/edit-product/6
+        // http://lali.print:8000/add-product/
+        $em=$this->getDoctrine()->getManager();
+        $product = null;
+        if($id){
+            $product = $em->getRepository(Product::class)->find($id);
+        }
+        if($product!=null){
+            $i=0;
+        }
+        else{
+            $product = new Product();
+            $product->setTitle('asd');
+            $product->setDescription('asd');
+            $product->setPrice(123);
+            $product->setQuantity(100);
+            $em->persist($product);
+            $em->flush();
+        }
+        $form= $this->createFormBuilder($product)
+            ->add('title',TextType::class)
+            ->getForm();
+//        dd($product,$form);
+        //  http://lali.print:8000/edit-product/1
+        return $this->render('main/default/edit_product.html.twig', [
+            'form'=>$form->createView()
+        ]);
     }
-
 }
 //  http://lali.print:8000/usrtest
 //  http://lali.print:8000/usr-add/daniil/23/15000
