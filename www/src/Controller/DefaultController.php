@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Us;
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Repository\UsRepository;
 use Doctrine\Common\Collections\Criteria;
+use http\Client\Request;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,38 +55,97 @@ class DefaultController extends AbstractController
     #[Route('/usr-show-children', name: 'showChildrenUsers')]
     public function indexShowUsrCildren(): Response
     {
-        $EM=$this->getDoctrine()->getManager();
-        $userList = $EM->getRepository(Us::class)->findAll();
-        dd($userList);
-//        $usrList = UserRepository->match ($criteria);
-//        match ($criteria);
-//        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
-//        dd($usrList);
+        $res = $this->getDoctrine()->getRepository(Us::class)->findChildren();
+        dd($res);
         return $this->render('main/default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
     }
-
-    #[Route('/usrtest', name: 'test')]
-    public function indexTest(): Response
+    #[Route('/usr-show-grown', name: 'showGrownUsers')]
+    public function indexShowUsrGrown(): Response
     {
-        $EM = new UserRepository($this->getDoctrine());
-
-
-
-//        dd($userList);
-//        $usrList = UserRepository->match ($criteria);
-//        match ($criteria);
-//        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
-//        dd($usrList);
+        $res = $this->getDoctrine()->getRepository(Us::class)->findGrown();
+        dd($res);
         return $this->render('main/default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
     }
 
+    #[Route('/product-add', name: 'product-add')]
+    public function indexTest( ): Response
+    {
+        //  http://lali.print:8000/product-add
+        $product =new Product();
+        $product->setTitle('Product_'.rand(1,100));
+        $product->setQuantity(rand(0,15));
+        $product->setPrice(rand(20,80));
+        $product->setDescription("something new");
+
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+        dd($product);
+        return $this->render('main/default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+    #[Route('/product-show', name: 'showAllProduct')]
+    public function indexProduct(): Response
+    {
+        //  http://lali.print:8000/product-show
+        $em=$this->getDoctrine()->getManager();
+        $productList = $em->getRepository(Product::class)->findAll();
+        dd($productList);
+        return $this->render('main/default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+    #[Route('/product-deleted/{title}', name: 'product-deleted')]
+    public function indexDeleted($title): Response
+    {
+        //  http://lali.print:8000/product-deleted/Product_44
+        $em=$this->getDoctrine()->getManager();
+        $forDelete= $em->getRepository(Product::class)->findBy(array('title'=>$title));
+        foreach($forDelete as $d){
+            $em->remove($d);
+        }
+        $em->flush();
+        dd($forDelete);
+        return $this->render('main/default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+    #[Route('/product-change-prise/{title}/{newPrise}', name: 'product-change-prise')]
+    public function indexChengePrise($title,$newPrise): Response
+    {
+        //  http://lali.print:8000/product-change-prise/Product_16/999
+        $em=$this->getDoctrine()->getManager();
+        $forChange= $em->getRepository(Product::class)->findBy(array('title'=>$title));
+        foreach($forChange as $d){
+            $d->setPrice($newPrise);
+            $em->persist($d);
+        }
+        $em->flush();
+        dd($forChange);
+        return $this->render('main/default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
+    }
+
+    #[Route('/edit-product',methods="GET|POST", name: 'product-change-prise')]
+    public function editProduct(Request $request){
+
+    }
 
 }
-
-//  /usr-add/daniil/23/15000
-//  /usr-add/veleri/23/8000
-//  /usr-add/ana/14/50
+//  http://lali.print:8000/usrtest
+//  http://lali.print:8000/usr-add/daniil/23/15000
+//  http://lali.print:8000/usr-add/veleri/23/8000
+//  http://lali.print:8000/usr-add/ana/14/50
+//  http://lali.print:8000/usr-add/natasha/42/30000
+//  http://lali.print:8000/usr-show   Показать всех юзеров
+//  http://lali.print:8000/usr-show-children
+//  http://lali.print:8000/usr-show-grown
+//  http://lali.print:8000/product-add
+//  http://lali.print:8000/product-show
+//  http://lali.print:8000

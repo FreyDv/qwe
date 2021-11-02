@@ -1,4 +1,7 @@
 /nginx/logs/
+/DB/
+/DB/postmaster.pid
 /www/var/
 /www/vendor/
+
 .idea

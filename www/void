@@ -16,7 +16,8 @@ service nginx restart
 nginx -t
 
 PostGre
-symfony console doctrine:database:create //создаст базу данных указаную в env файле симфони
+//создаст базу данных указаную в env файле симфони
+symfony console doctrine:database:create
 psql -U ldfm0401@gmail.com -h postgres -d FreyDB
 psql -h qwe_postgres_1 -d FreyDB -U ldfm0401@gmail.com
 symfony console make:entity Product

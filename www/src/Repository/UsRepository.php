@@ -22,18 +22,28 @@ class UsRepository extends ServiceEntityRepository
     /**
      * @return Us[] Returns an array of Us objects
      */
-
-    public function findByExampleField($value)
+    public function findChildren():array
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.age', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+       return $this->createQueryBuilder('p')
+           ->where('p.age < 18')
+           -> getQuery()
+           -> execute();
     }
+    /**
+     * @return Us[] Returns an array of Us objects
+     */
+    public function findGrown():array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.age > 18')
+            -> getQuery()
+            -> execute();
+    }
+    /**
+     * @return Us[] Returns an array of Us objects
+     */
+
+
 
 
     /*
