@@ -4,11 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\Us;
+use App\Form\EditProductFormType;
 use App\Repository\UsRepository;
 use Doctrine\Common\Collections\Criteria;
 //use http\Client\Request;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
@@ -135,10 +138,49 @@ class DefaultController extends AbstractController
         ]);
     }
 
+
+// add-product Без класса Форм
+//    #[Route('/edit-product/{id}', name: 'product_edit', requirements: array('id' => '\d+'), methods: 'GET|POST')]
+//    #[Route('/add-product/', name: 'product_add',methods: 'GET|POST')]
+//    public function editProduct(Request $request,int $id=null): Response
+//    {
+//        // http://lali.print:8000/edit-product/6
+//        // http://lali.print:8000/add-product/
+//        $em=$this->getDoctrine()->getManager();
+//        $product = null;
+//        if($id){
+//            $product = $em->getRepository(Product::class)->find($id);
+//        }
+//        else{
+//            $product = new Product();
+//        }
+//
+//        $form= $this->createFormBuilder($product)
+//            ->add('title',TextType::class)
+//            ->add('price',NumberType::class)
+//            ->add('quantity',IntegerType::class)
+//            ->getForm();
+//        //  http://lali.print:8000/edit-product/8
+//
+////        dump($product->getTitle());
+//        $form->handleRequest($request);
+//        if($form->isSubmitted()&&$form->isValid()){
+//            $data= $form->getData();
+////            dd($product,$data);
+//            $em->persist($product);
+//            $em->flush();
+//            return $this->redirectToRoute('product_edit',['id'=>$product->getId()]);
+//        }
+//        return $this->renderForm('main/default/edit_product.html.twig', [
+//            'form'=>$form
+//        ]);
+//    }
+
     #[Route('/edit-product/{id}', name: 'product_edit', requirements: array('id' => '\d+'), methods: 'GET|POST')]
     #[Route('/add-product/', name: 'product_add',methods: 'GET|POST')]
     public function editProduct(Request $request,int $id=null): Response
     {
+        // http://lali.print:8000/edit-product/8
         // http://lali.print:8000/edit-product/6
         // http://lali.print:8000/add-product/
         $em=$this->getDoctrine()->getManager();
@@ -146,25 +188,22 @@ class DefaultController extends AbstractController
         if($id){
             $product = $em->getRepository(Product::class)->find($id);
         }
-        if($product!=null){
-            $i=0;
-        }
         else{
             $product = new Product();
-            $product->setTitle('asd');
-            $product->setDescription('asd');
-            $product->setPrice(123);
-            $product->setQuantity(100);
+        }
+
+        $form= $this->createForm(EditProductFormType::class,$product);
+
+
+//        dump($product->getTitle());
+        $form->handleRequest($request);
+        if($form->isSubmitted()&&$form->isValid()){
             $em->persist($product);
             $em->flush();
+            return $this->redirectToRoute('product_edit',['id'=>$product->getId()]);
         }
-        $form= $this->createFormBuilder($product)
-            ->add('title',TextType::class)
-            ->getForm();
-//        dd($product,$form);
-        //  http://lali.print:8000/edit-product/1
-        return $this->render('main/default/edit_product.html.twig', [
-            'form'=>$form->createView()
+        return $this->renderForm('main/default/edit_product.html.twig', [
+            'form'=>$form
         ]);
     }
 }
