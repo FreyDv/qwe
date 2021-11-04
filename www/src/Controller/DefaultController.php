@@ -34,48 +34,47 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/usr-add/{name}/{age}/{zp}', 'GET', name:'usr-add')]
-    public function productAdd($name,$age,$zp): Response
-    {
-        $user = new Us($name,$age,$zp);
-        $EM=$this->getDoctrine()->getManager();
-        $EM->persist($user);
-        $EM->flush();
-        return $this->redirectToRoute('showAllUsers');
-    }
-
-    #[Route('/usr-show', name: 'showAllUsers')]
-    public function indexShowUsr(): Response
-    {
-        $EM=$this->getDoctrine()->getManager();
-        $userList = $EM->getRepository(Us::class)->findAll();
-        dd($userList);
-//        $usrList = UserRepository->match ($criteria);
-//        match ($criteria);
-//        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
-//        dd($usrList);
-        return $this->render('main/default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
-    #[Route('/usr-show-children', name: 'showChildrenUsers')]
-    public function indexShowUsrCildren(): Response
-    {
-        $res = $this->getDoctrine()->getRepository(Us::class)->findChildren();
-        dd($res);
-        return $this->render('main/default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
-    #[Route('/usr-show-grown', name: 'showGrownUsers')]
-    public function indexShowUsrGrown(): Response
-    {
-        $res = $this->getDoctrine()->getRepository(Us::class)->findGrown();
-        dd($res);
-        return $this->render('main/default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
-    }
+//    #[Route('/usr-add/{name}/{age}/{zp}', 'GET', name:'usr-add')]
+//    public function productAdd($name,$age,$zp): Response
+//    {
+//        $user = new Us($name,$age,$zp);
+//        $EM=$this->getDoctrine()->getManager();
+//        $EM->persist($user);
+//        $EM->flush();
+//        return $this->redirectToRoute('showAllUsers');
+//    }
+//    #[Route('/usr-show', name: 'showAllUsers')]
+//    public function indexShowUsr(): Response
+//    {
+//        $EM=$this->getDoctrine()->getManager();
+//        $userList = $EM->getRepository(Us::class)->findAll();
+//        dd($userList);
+////        $usrList = UserRepository->match ($criteria);
+////        match ($criteria);
+////        $usrList = $Manager->getRepository(User::class)->findBy(array('age'=>'>23'));
+////        dd($usrList);
+//        return $this->render('main/default/index.html.twig', [
+//            'controller_name' => 'DefaultController',
+//        ]);
+//    }
+//    #[Route('/usr-show-children', name: 'showChildrenUsers')]
+//    public function indexShowUsrCildren(): Response
+//    {
+//        $res = $this->getDoctrine()->getRepository(Us::class)->findChildren();
+//        dd($res);
+//        return $this->render('main/default/index.html.twig', [
+//            'controller_name' => 'DefaultController',
+//        ]);
+//    }
+//    #[Route('/usr-show-grown', name: 'showGrownUsers')]
+//    public function indexShowUsrGrown(): Response
+//    {
+//        $res = $this->getDoctrine()->getRepository(Us::class)->findGrown();
+//        dd($res);
+//        return $this->render('main/default/index.html.twig', [
+//            'controller_name' => 'DefaultController',
+//        ]);
+//    }
 
     #[Route('/product-add', name: 'product-add')]
     public function indexTest( ): Response

@@ -43,3 +43,8 @@ git push -u origin main
 
 ClassForm
 symfony console make:form
+symfony console make:user
+
+//Выполнить эту команду для перепривязки автозагрузки за класами
+(удалил создал вручную новый файл вызывая эту функцию пересоздаем файл автолоад )
+symfony composer dump-autoload
