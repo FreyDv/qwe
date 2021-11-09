@@ -1,7 +1,7 @@
 body{
-    min-width: 320px;
-    font-size: 14px;
-    font-family: 'Noto Serif', serif;
+    min-width: 375px;
+    font-size: 10px;
+    font-family: 'Exo 2', sans-serif;
     color: #626262;
 }
 img{
@@ -14,21 +14,31 @@ a{
 a:hover{
     color: #898377;
 }
-header .navbar-light .navbar-brand{
-    color: #4e2928;
-    font-size:  xx-large;
+header .navbar-light .navbar-brand .d-inline-block {
+    width: 35%;
+    height: 35%;
+    min-width: 25%;
+    min-height: 25%;
+    max-width: 200px;
+    max-height: 200px;
+}
+header .navbar-light .nav-item{
+    font-family: 'Exo 2', sans-serif;
+    font-size:  x-large;
+    white-space: nowrap;
 }
 header .nav-item a::after{
-    content: '';
-    display: block;
-    width: 100%;
-    background-color: #ccc;
-    height: 1px;
+    font-family: 'Exo 2', sans-serif;
+    /*content: '';*/
+    /*display: block;*/
+    /*width: 100%;*/
+    /*background-color: #ccc;*/
+
+    height: 2px;
 }
-/*.sef-brand {*/
-/*    color: #ff0700;*/
-/*    font-size: 50px;*/
-/*}*/
+
+
+
 
 
 

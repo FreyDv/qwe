@@ -6,4 +6,5 @@ when@test:
         form_themes: ['bootstrap_4_layout.html.twig']
         strict_variables: true
         auto_reload: true
+        cache: false
 
