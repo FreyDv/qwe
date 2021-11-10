@@ -14,27 +14,14 @@ a{
 a:hover{
     color: #898377;
 }
-header .navbar-light .navbar-brand .d-inline-block {
-    width: 35%;
-    height: 35%;
-    min-width: 25%;
-    min-height: 25%;
-    max-width: 200px;
-    max-height: 200px;
-}
-header .navbar-light .nav-item{
-    font-family: 'Exo 2', sans-serif;
-    font-size:  x-large;
+header .white-space{
     white-space: nowrap;
 }
-header .nav-item a::after{
-    font-family: 'Exo 2', sans-serif;
-    /*content: '';*/
-    /*display: block;*/
-    /*width: 100%;*/
-    /*background-color: #ccc;*/
 
-    height: 2px;
+
+header img{
+    width: 150px;
+    height: 150px;
 }
 
 
@@ -117,31 +104,33 @@ header .nav-item a::after{
 
 
 
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 1200px){
 
-}
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 1199px){
 
-}
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 992px){
 
-}
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 991px){
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 1200px){*/
+/*}*/
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 1199px){*/
 
-}
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 768px){
+/*}*/
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 992px){*/
 
-}
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 767px){
+/*}*/
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 991px){*/
 
-}
-/* Extra Small Devices, Phone */
-@media only screen and (max-width: 480px){
+/*}*/
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 768px){*/
 
-}
+/*}*/
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 767px){*/
+
+/*}*/
+/*!* Extra Small Devices, Phone *!*/
+/*@media only screen and (max-width: 480px){*/
+
+/*}*/
