@@ -137,6 +137,9 @@
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/symfony/maker-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/www/vendor/symfonycasts/verify-email-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/nginx/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/www/var" />
+      <excludeFolder url="file://$MODULE_DIR$/www/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
