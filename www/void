@@ -38,7 +38,9 @@ git config --list | grep user.email
 symfony new --dir=lali.print --full
 
 git remote add origin git@github.com:FreyDv/lali.print.git
+git remote add origin git@github.com:FreyDv/qwe.git
 git branch -M main
+git branch -M origin/master
 git push -u origin main
 фы
 
