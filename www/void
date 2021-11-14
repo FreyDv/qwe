@@ -36,13 +36,19 @@ git config --list | grep user.email
 
 
 symfony new --dir=lali.print --full
-
+git remote set-url origin git@github.com:FreyDv/qwe.git
 git remote add origin git@github.com:FreyDv/lali.print.git
 git remote add origin git@github.com:FreyDv/qwe.git
 git branch -M main
 git branch -M origin/master
 git push -u origin main
 фы
+
+// помогло запушить с ядралинукса
+git config --global user.name "FreyDv"
+git config --global user.email "ldfm0401@gmail.com"
+git remote set-url origin git@github.com:FreyDv/qwe.git
+git push origin HEAD:master
 
 ClassForm
 symfony console make:form
