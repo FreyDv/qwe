@@ -16,21 +16,24 @@ class EditProductFormType extends AbstractType
     {
         $builder
             ->add('title',TextType::class,[
-                'label'=>'Name (from class)', // выводит название именно с этого класса
+                'label'=>'Name', // выводит название именно с этого класса
                 'required' => true, // обязательно к заполнению (по дефолту тру)
 //                'constraints'=> [    //блок для задания валидационых павраметров
 //                    new NotBlank([],'Should be fill')      // Валидация на заполненую форму
 //                ]                                          // и вывод сообщения если это не так
             ])
             ->add('price',NumberType::class,[
-                'label'=>'Price (from class)',
+                'label'=>'Price',
                 'scale'=> 2,
                 'html5' => true,
                 'attr'=>[
                     'step'=>'1'
                 ]
             ])
-            ->add('quantity')
+            ->add('quantity',NumberType::class,[
+                'label' => 'quantity'
+
+            ])
             ->add('description')
             ->add('isPublished')
             ->add('isDeleted')
